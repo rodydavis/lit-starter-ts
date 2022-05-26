@@ -661,16 +661,40 @@ const tagName = "my-element";
 let MyElement = class extends s {
   constructor() {
     super(...arguments);
-    this.name = "";
+    this.name = "World";
+    this.count = 1;
   }
   render() {
-    return $``;
+    return $`
+      <h1>Hello, ${this.name}!</h1>
+      <button @click=${this._onClick} role="button">
+        Click Count: ${this.count}
+      </button>
+      <slot></slot>
+    `;
+  }
+  _onClick() {
+    this.count++;
+    this.dispatchEvent(new CustomEvent("count", { detail: this.count }));
+  }
+  foo() {
+    return "foo";
   }
 };
-MyElement.styles = r$2``;
+MyElement.styles = r$2`
+    :host {
+      display: block;
+      border: solid 1px gray;
+      padding: 16px;
+      max-width: 800px;
+    }
+  `;
 __decorateClass([
   e()
 ], MyElement.prototype, "name", 2);
+__decorateClass([
+  e({ type: Number })
+], MyElement.prototype, "count", 2);
 MyElement = __decorateClass([
   n$1(tagName)
 ], MyElement);
