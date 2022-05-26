@@ -1,4 +1,6 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest" />
+
+import { defineConfig } from "vitest/config";
 import { resolve } from "path";
 
 export default defineConfig({
@@ -13,5 +15,9 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: "happy-dom",
   },
 });
